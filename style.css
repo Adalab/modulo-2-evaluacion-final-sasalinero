@@ -1,0 +1,7 @@
+.container {
+  background-image: url(./imagenes/imagen_final_fondo.jpg);
+  background-size: cover;
+}
+.fondoli {
+  border: solid red;
+}
