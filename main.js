@@ -6,21 +6,21 @@ let series =[]; //Este es el array vacio para meter las peliculas que han salido
 let favorite=[];//Este es el array vacio que usaré para meter las seleccionadas. 
 
 function handlerClick() {
-
+  
   const text = document.querySelector(".text").value; //Para sacar el dato que escribe en el input
 
   fetch("https://api.tvmaze.com/search/shows?q=" + text) //Es la url con el nombre de la peli del input
-
+  
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
-
+      const newList = document.querySelector(".list");
       series=data;//Aquí quiere decir que los resultados se meteran en series.
-
+      newList.innerHTML="";
       for (let i = 0; i < data.length; i++) {
 
-        const newList = document.querySelector(".list");//Este es el <ul>, así lo selecciono.
+        //Este es el <ul>, así lo selecciono.
         const newElement = document.createElement("li");//Aquí creo la etiqueta <li></li>
         const newMovie = document.createTextNode(data[i].show.name);//Aqui creo el texto que va a ir en la <li></li> que son las peliculas que se escriban en el input.
         const newElementImage = document.createElement("img");//Aqui creo la etiqueta <img>
@@ -36,8 +36,7 @@ function handlerClick() {
         newList.appendChild(newElement);//Meto dentro del padre <ul> el <li> generado.
         newElement.appendChild(newMovie);//Meto dentro del padre <li> los datos generados en el input
         newElement.appendChild(newElementImage);//Meto dentro del padre <li> los datos del src de la imagen
-        //console.log(newElementImage);//Acordarme de borrar todos los console.log
-        //console.log(newElement);//Este tambien borrarlo. 
+       
         newElement.addEventListener("click",handlerFavorite)//Aquí los <li> que escuchen el evento click guardará los id que hagan click en favorite. 
       }
     });
@@ -47,22 +46,12 @@ button.addEventListener("click", handlerClick);//Este es el evento cuando hace c
 
 function handlerFavorite(ev){
 
- let favorite=ev.currentTarget.id;//Aquí se guardará los id de los elementos que hayan hecho click.
- console.log(favorite);
+ const fav=parseInt(ev.currentTarget.id);//Aquí se guardará los id de los elementos que hayan hecho click.
+ console.log(fav);
+
+ const objectClicked = series.find( serieData  =>  serieData.show.id === fav  );//Aquí busco en el array general donde estan todas las peliculas que han aparecido, las peliculas que tenga un mismo id que el id de los que he clickado.
+
+ favorite.push(objectClicked)//Aquí meto el resultado de las peliculas que coinciden con su id. 
 }
-
-
-
-//const favoriteId=favorite.find(id=>favorite.data[i].id);
-//console.log(favoriteId);
-
-// let series = series.find(id => data[i].id);
-
-// console.log(favorite);
-
-
-
-
-
 
 
