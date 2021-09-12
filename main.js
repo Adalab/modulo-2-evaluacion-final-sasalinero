@@ -15,12 +15,15 @@ function handlerClick() {
       return response.json();
     })
     .then(function (data) {
-      const newList = document.querySelector(".list");
-      series=data;//Aquí quiere decir que los resultados se meteran en series.
-      newList.innerHTML="";
-      for (let i = 0; i < data.length; i++) {
 
-        //Este es el <ul>, así lo selecciono.
+      const newList = document.querySelector(".list"); //Este es el <ul> principal, así lo selecciono.Aqui dentro va a ir lo nuevo que crearé.
+
+      series=data;//Aquí quiere decir que los resultados se meteran en series.
+
+      newList.innerHTML="";//Esto es para que se borre la lista anterior y no se me agregue cuando busco otra pelicula. 
+
+      for (let i = 0; i < data.length; i++) {
+       
         const newElement = document.createElement("li");//Aquí creo la etiqueta <li></li>
         const newMovie = document.createTextNode(data[i].show.name);//Aqui creo el texto que va a ir en la <li></li> que son las peliculas que se escriban en el input.
         const newElementImage = document.createElement("img");//Aqui creo la etiqueta <img>
@@ -43,15 +46,43 @@ function handlerClick() {
 }
 button.addEventListener("click", handlerClick);//Este es el evento cuando hace click para buscar el texto de la pelicula.
 
-
 function handlerFavorite(ev){
 
  const fav=parseInt(ev.currentTarget.id);//Aquí se guardará los id de los elementos que hayan hecho click.
  console.log(fav);
 
- const objectClicked = series.find( serieData  =>  serieData.show.id === fav  );//Aquí busco en el array general donde estan todas las peliculas que han aparecido, las peliculas que tenga un mismo id que el id de los que he clickado.
+ const buscaElidDeLasFavoritas= series.find( daIgualElNombre=> daIgualElNombre.show.id===fav);
 
- favorite.push(objectClicked)//Aquí meto el resultado de las peliculas que coinciden con su id. 
+ const index = series.findIndex(indexIdserie=> indexIdserie);//Aquí busco la posición del array principal"series" qeu coincida con el id de la posición de favoritas.
+
+ console.log(index);
+
+ favorite.push(buscaElidDeLasFavoritas)//Aquí meto el resultado de las peliculas que coinciden el id de series con el id de fav que son las que han clikado.
+
+ const newFavoriteUl=document.querySelector(".ulFavorite");
+
+
+console.log(newFavoriteUl);
+ for (let i = 0; i < favorite.length; i++) {
+  
+  const newFavoriteLi = document.createElement("li");//Aquí creo una nueva etiqueta <li></li> para las favoritas.
+  const newMovieFavorite = document.createTextNode(favorite[i].show.name);//Aqui creo el texto de la favorita en la nueva etiqueta <li></li> de favorita.
+  const newMovieImageFavorite = document.createElement("img");//Aqui creo la etiqueta <img> par ameter la imagen de las favoritas.
+
+  if (!favorite[i].show.image) {//Si no hay imagen:
+
+    newMovieImageFavorite.src = ("https://via.placeholder.com/210x295/ffffff/666666/?text=TV");//Añadir esta imagen de X
+    
+  }else{//Si hay imagen completar por defecto con esto:
+    newMovieImageFavorite.src = favorite[i].show.image.medium;
+  }
+  newFavoriteLi.classList.add("favoriteList");
+  
+  newFavoriteUl.appendChild(newFavoriteLi);//En el nuevo padre-favorito <ul> he metido el nuevo hijo <li> favorito
+  newFavoriteLi.appendChild(newMovieFavorite);//En el nuevo padre <li> favorito he metido texto
+  newFavoriteLi.appendChild(newMovieImageFavorite);//En el nuevo padre <li> he metido la nueva imagen
+  
+  }
+  ev.currentTarget.classList.toggle("toggle");
 }
-
 

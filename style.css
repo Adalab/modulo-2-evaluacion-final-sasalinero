@@ -1,7 +1,26 @@
 .container {
+  /*Es el conjunto de todo*/
   background-image: url(./imagenes/imagen_final_fondo.jpg);
   background-size: cover;
+  margin: 20px;
 }
-.fondoli {
-  border: solid red;
+.boxTwo {
+  display: flex;
+}
+.list {
+  list-style: none;
+  /*Este es el contenedor grande de peliculas*/
+
+  border: solid blue 10px;
+  color: blue;
+}
+.favoriteList {
+  /*Son las peliculas señaladas individualmente*/
+  list-style: none;
+  color: black;
+  border: solid greenyellow 10px;
+}
+
+.toggle {
+  background-color: cornflowerblue;
 }
