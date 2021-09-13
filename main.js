@@ -108,7 +108,7 @@ function getLocalStorage() {
         const MovieImageLocal = document.createElement("img");//Aqui creo la etiqueta <img> para meter la imagen de las favoritas local.
         if (!favorite[i].show.image) {//Si no hay imagen:
 
-            newMovieImageFavorite.src = ("https://via.placeholder.com/210x295/ffffff/666666/?text=TV");//Añadir esta imagen de X
+            MovieImageLocal.src = ("https://via.placeholder.com/210x295/ffffff/666666/?text=TV");//Añadir esta imagen de X
 
         } else {//Si hay imagen completar por defecto con esto:
             MovieImageLocal.src = favorite[i].show.image.medium;
@@ -132,8 +132,8 @@ function handlerReset() {//Esta es la función que me permite borrar
     localStorage.removeItem('preferida');//Con esto borro el localStorage de favoritos
     newFavoriteUl.innerHTML = "";//Con esto aparece el Ul vacio.
     favorite = [];//Con esto aparece el array de favoritos vacio.
-    series = [];//Con esto aparece el array de series de la busqueda vacio.
-    listUl.innerHTML = "";//Con esto aparece el <ul> principal vacio.
+    // series = [];//Con esto aparece el array de series de la busqueda vacio.
+    // listUl.innerHTML = "";//Con esto aparece el <ul> principal vacio.
 
 }
 

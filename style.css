@@ -9,6 +9,7 @@
 }
 .list {
   list-style: none;
+
   /*Este es el contenedor grande de peliculas*/
 
   /* border: solid blue 10px;
@@ -17,10 +18,14 @@
 .favoriteList {
   /*Son las peliculas señaladas individualmente*/
   list-style: none;
+
   /* color: black;
   border: solid greenyellow 10px; */
 }
-
+.titleFavorite {
+  font-weight: bold;
+  font-size: 50px;
+}
 .toggle {
   background-color: rgb(86, 152, 214);
 }
