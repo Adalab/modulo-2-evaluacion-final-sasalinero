@@ -11,20 +11,48 @@
   list-style: none;
   /*Este es el contenedor grande de peliculas*/
 
-  border: solid blue 10px;
-  color: blue;
+  /* border: solid blue 10px;
+  color: blue; */
 }
 .favoriteList {
   /*Son las peliculas señaladas individualmente*/
   list-style: none;
-  color: black;
-  border: solid greenyellow 10px;
+  /* color: black;
+  border: solid greenyellow 10px; */
 }
 
 .toggle {
-  background-color: cornflowerblue;
+  background-color: grey;
 }
 .second {
   display: flex;
   order: -1;
+}
+.btn {
+  text-transform: initial;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: gainsboro;
+  color: black;
+  border-radius: 50px;
+}
+.btnReset {
+  text-transform: initial;
+  font-weight: bold;
+  color: gainsboro;
+  color: black;
+  border-radius: 50px;
+}
+.text {
+  color: black;
+  font-size: 20px;
+  font-weight: bold;
+}
+.title {
+  display: flex;
+  text-align: center;
+  text-transform: initial;
+  font-weight: bold;
+  font-size: 50px;
+  color: black;
 }
