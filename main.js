@@ -83,8 +83,24 @@ function handlerFavorite(ev) {
             newFavoriteLi.appendChild(newMovieImageFavorite);//En el nuevo padre <li> he metido la nueva imagen
 
         }
-    }
+
+    } console.log(favorite);
+    localStorage.setItem('preferida', JSON.stringify(favorite));//aqui guardo los datos
+    //getLocalStorage();
     ev.currentTarget.classList.toggle("toggle");
+
 }
+
+
+function getLocalStorage() {
+
+    const contenido = JSON.parse(localStorage.getItem('preferida')); console.log(contenido);
+    if (contenido !== null) {
+        favorite = contenido
+    }
+
+}
+getLocalStorage();
+
 
 
