@@ -25,13 +25,14 @@
 .titleFavorite {
   font-weight: bold;
   font-size: 50px;
+  border-bottom: thin dashed;
 }
 .toggle {
   background-color: rgb(86, 152, 214);
 }
 .second {
-  display: flex;
   order: -1;
+  width: 50%vw;
 }
 .btn {
   text-transform: initial;
@@ -43,7 +44,9 @@
   height: 50px;
   width: 200px;
 }
-
+.btn:hover {
+  box-shadow: 0px 0px 50px 0px #280f95;
+}
 .btnReset {
   border: black dotted;
   font-size: 30px;
@@ -53,6 +56,9 @@
   color: black;
   height: 50px;
   width: 200px;
+}
+.btnReset:hover {
+  box-shadow: 0px 0px 50px 0px #280f95;
 }
 .text {
   color: black;
