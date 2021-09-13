@@ -123,17 +123,17 @@ function getLocalStorage() {
 }
 getLocalStorage();
 
-const listUl = document.querySelector(".list");
-const newFavoriteUl = document.querySelector(".ulFavorite");
-const reset = document.querySelector(".btnReset");
+const listUl = document.querySelector(".list");//Aquí busco el <ul> principal
+const newFavoriteUl = document.querySelector(".ulFavorite");//Aquí busco el <ul> de favoritas.
+const reset = document.querySelector(".btnReset");//Aquí busco el boton de reset.
 
-function handlerReset() {
+function handlerReset() {//Esta es la función que me permite borrar
 
-    localStorage.removeItem('preferida');
-    newFavoriteUl.innerHTML = "";
-    favorite = [];
-    series = [];
-    listUl.innerHTML = "";
+    localStorage.removeItem('preferida');//Con esto borro el localStorage de favoritos
+    newFavoriteUl.innerHTML = "";//Con esto aparece el Ul vacio.
+    favorite = [];//Con esto aparece el array de favoritos vacio.
+    series = [];//Con esto aparece el array de series de la busqueda vacio.
+    listUl.innerHTML = "";//Con esto aparece el <ul> principal vacio.
 
 }
 
