@@ -98,7 +98,26 @@ function getLocalStorage() {
     if (contenido !== null) {
         favorite = contenido
     }
+    const newFavoriteUl = document.querySelector(".ulFavorite");
+    for (let i = 0; i < favorite.length; i++) {
 
+
+        const liLocal = document.createElement("li");//Aquí creo una nueva etiqueta <li></li> de localStorage
+        const movieLocal = document.createTextNode(favorite[i].show.name);//Aqui creo el texto de la favorita en local.
+        const MovieImageLocal = document.createElement("img");//Aqui creo la etiqueta <img> para meter la imagen de las favoritas local.
+        if (!favorite[i].show.image) {//Si no hay imagen:
+
+            newMovieImageFavorite.src = ("https://via.placeholder.com/210x295/ffffff/666666/?text=TV");//Añadir esta imagen de X
+
+        } else {//Si hay imagen completar por defecto con esto:
+            MovieImageLocal.src = favorite[i].show.image.medium;
+        }
+
+        newFavoriteUl.appendChild(liLocal);//En el nuevo padre-favorito <ul> he metido el nuevo hijo <li> favorito
+        liLocal.appendChild(movieLocal);//En el nuevo padre <li> favorito he metido texto
+        liLocal.appendChild(MovieImageLocal);//En el nuevo padre <li> he metido la nueva imagen
+
+    }
 }
 getLocalStorage();
 
