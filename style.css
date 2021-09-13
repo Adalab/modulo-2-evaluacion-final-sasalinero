@@ -24,3 +24,7 @@
 .toggle {
   background-color: cornflowerblue;
 }
+.second {
+  display: flex;
+  order: -1;
+}

@@ -2,87 +2,89 @@
 
 
 const button = document.querySelector(".btn");
-let series =[]; //Este es el array vacio para meter las peliculas que han salido al buscar. 
-let favorite=[];//Este es el array vacio que usaré para meter las seleccionadas. 
+let series = []; //Este es el array vacio para meter las peliculas que han salido al buscar. 
+let favorite = [];//Este es el array vacio que usaré para meter las seleccionadas. 
 
 function handlerClick() {
-  
-  const text = document.querySelector(".text").value; //Para sacar el dato que escribe en el input
 
-  fetch("https://api.tvmaze.com/search/shows?q=" + text) //Es la url con el nombre de la peli del input
-  
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
+    const text = document.querySelector(".text").value; //Para sacar el dato que escribe en el input
 
-      const newList = document.querySelector(".list"); //Este es el <ul> principal, así lo selecciono.Aqui dentro va a ir lo nuevo que crearé.
+    fetch("https://api.tvmaze.com/search/shows?q=" + text) //Es la url con el nombre de la peli del input
 
-      series=data;//Aquí quiere decir que los resultados se meteran en series.
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
 
-      newList.innerHTML="";//Esto es para que se borre la lista anterior y no se me agregue cuando busco otra pelicula. 
+            const newList = document.querySelector(".list"); //Este es el <ul> principal, así lo selecciono.Aqui dentro va a ir lo nuevo que crearé.
 
-      for (let i = 0; i < data.length; i++) {
-       
-        const newElement = document.createElement("li");//Aquí creo la etiqueta <li></li>
-        const newMovie = document.createTextNode(data[i].show.name);//Aqui creo el texto que va a ir en la <li></li> que son las peliculas que se escriban en el input.
-        const newElementImage = document.createElement("img");//Aqui creo la etiqueta <img>
-        
-        newElement.id = data[i].show.id;//Con esto se generará un id en el <li>
-        if (!data[i].show.image) {//Si no hay imagen:
+            series = data;//Aquí quiere decir que los resultados se meteran en series.
 
-          newElementImage.src = ("https://via.placeholder.com/210x295/ffffff/666666/?text=TV");//Aquí he intentado añadir la imaen X por si no tiene imagen el resultado pero no se si sale, no se como comprobarlo.
-          
-        }else{//Si hay imagen completar por defecto con esto:
-          newElementImage.src = data[i].show.image.medium;
-        }
-        newList.appendChild(newElement);//Meto dentro del padre <ul> el <li> generado.
-        newElement.appendChild(newMovie);//Meto dentro del padre <li> los datos generados en el input
-        newElement.appendChild(newElementImage);//Meto dentro del padre <li> los datos del src de la imagen
-       
-        newElement.addEventListener("click",handlerFavorite)//Aquí los <li> que escuchen el evento click guardará los id que hagan click en favorite. 
-      }
-    });
+            newList.innerHTML = "";//Esto es para que se borre la lista anterior y no se me agregue cuando busco otra pelicula. 
+
+            for (let i = 0; i < data.length; i++) {
+
+                const newElement = document.createElement("li");//Aquí creo la etiqueta <li></li>
+                const newMovie = document.createTextNode(data[i].show.name);//Aqui creo el texto que va a ir en la <li></li> que son las peliculas que se escriban en el input.
+                const newElementImage = document.createElement("img");//Aqui creo la etiqueta <img>
+
+                newElement.id = data[i].show.id;//Con esto se generará un id en el <li> para que no este vacio.
+                if (!data[i].show.image) {//Si no hay imagen:
+
+                    newElementImage.src = ("https://via.placeholder.com/210x295/ffffff/666666/?text=TV");//Aquí he intentado añadir la imaen X por si no tiene imagen el resultado pero no se si sale, no se como comprobarlo.
+
+                } else {//Si hay imagen completar por defecto con esto:
+                    newElementImage.src = data[i].show.image.medium;
+                }
+                newList.appendChild(newElement);//Meto dentro del padre <ul> el <li> generado.
+                newElement.appendChild(newMovie);//Meto dentro del padre <li> los datos generados en el input
+                newElement.appendChild(newElementImage);//Meto dentro del padre <li> los datos del src de la imagen
+
+                newElement.addEventListener("click", handlerFavorite)//Aquí los <li> que escuchen el evento click guardará los id que hagan click en favorite. 
+            }
+        });
 }
 button.addEventListener("click", handlerClick);//Este es el evento cuando hace click para buscar el texto de la pelicula.
 
-function handlerFavorite(ev){
+function handlerFavorite(ev) {
 
- const fav=parseInt(ev.currentTarget.id);//Aquí se guardará los id de los elementos que hayan hecho click.
- console.log(fav);
+    const favId = parseInt(ev.currentTarget.id);//Aquí se guardará los id de los elementos que hayan hecho click.
+    console.log(favId);
 
- const buscaElidDeLasFavoritas= series.find( daIgualElNombre=> daIgualElNombre.show.id===fav);
+    const peliculaFavorita = series.find(pelicula => pelicula.show.id === favId);//El resultado de esto nos da la pelicula entera que coincide el id de las serie con el id de las favoritas.
 
- const index = series.findIndex(indexIdserie=> indexIdserie);//Aquí busco la posición del array principal"series" qeu coincida con el id de la posición de favoritas.
+    const comprobarsiexisteenfavorite = favorite.findIndex(peliculafavorita => peliculafavorita.show.id === favId);
 
- console.log(index);
-
- favorite.push(buscaElidDeLasFavoritas)//Aquí meto el resultado de las peliculas que coinciden el id de series con el id de fav que son las que han clikado.
-
- const newFavoriteUl=document.querySelector(".ulFavorite");
+    if (comprobarsiexisteenfavorite == -1) {//quiere decir -1 que no esta en favorites, por lo tanto se puede meter.
+        favorite.push(peliculaFavorita);
 
 
-console.log(newFavoriteUl);
- for (let i = 0; i < favorite.length; i++) {
-  
-  const newFavoriteLi = document.createElement("li");//Aquí creo una nueva etiqueta <li></li> para las favoritas.
-  const newMovieFavorite = document.createTextNode(favorite[i].show.name);//Aqui creo el texto de la favorita en la nueva etiqueta <li></li> de favorita.
-  const newMovieImageFavorite = document.createElement("img");//Aqui creo la etiqueta <img> par ameter la imagen de las favoritas.
+        const newFavoriteUl = document.querySelector(".ulFavorite");
+        newFavoriteUl.innerHTML = "";
 
-  if (!favorite[i].show.image) {//Si no hay imagen:
+        console.log(newFavoriteUl);
+        for (let i = 0; i < favorite.length; i++) {
 
-    newMovieImageFavorite.src = ("https://via.placeholder.com/210x295/ffffff/666666/?text=TV");//Añadir esta imagen de X
-    
-  }else{//Si hay imagen completar por defecto con esto:
-    newMovieImageFavorite.src = favorite[i].show.image.medium;
-  }
-  newFavoriteLi.classList.add("favoriteList");
-  
-  newFavoriteUl.appendChild(newFavoriteLi);//En el nuevo padre-favorito <ul> he metido el nuevo hijo <li> favorito
-  newFavoriteLi.appendChild(newMovieFavorite);//En el nuevo padre <li> favorito he metido texto
-  newFavoriteLi.appendChild(newMovieImageFavorite);//En el nuevo padre <li> he metido la nueva imagen
-  
-  }
-  ev.currentTarget.classList.toggle("toggle");
+            const newFavoriteLi = document.createElement("li");//Aquí creo una nueva etiqueta <li></li> para las favoritas.
+            const newMovieFavorite = document.createTextNode(favorite[i].show.name);//Aqui creo el texto de la favorita en la nueva etiqueta <li></li> de favorita.
+            const newMovieImageFavorite = document.createElement("img");//Aqui creo la etiqueta <img> par ameter la imagen de las favoritas.
+
+            if (!favorite[i].show.image) {//Si no hay imagen:
+
+                newMovieImageFavorite.src = ("https://via.placeholder.com/210x295/ffffff/666666/?text=TV");//Añadir esta imagen de X
+
+            } else {//Si hay imagen completar por defecto con esto:
+                newMovieImageFavorite.src = favorite[i].show.image.medium;
+            }
+            newFavoriteLi.classList.add("favoriteList");
+
+            newFavoriteUl.appendChild(newFavoriteLi);//En el nuevo padre-favorito <ul> he metido el nuevo hijo <li> favorito
+            newFavoriteLi.appendChild(newMovieFavorite);//En el nuevo padre <li> favorito he metido texto
+            newFavoriteLi.appendChild(newMovieImageFavorite);//En el nuevo padre <li> he metido la nueva imagen
+
+        }
+    }
+    ev.currentTarget.classList.toggle("toggle");
 }
+
 
